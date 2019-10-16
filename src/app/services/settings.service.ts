@@ -2,7 +2,7 @@ import { Injectable, Injector } from '@angular/core';
 import { Route, Router } from '@angular/router';
 import { HomeComponent } from '../home/home.component';
 import { PropertySearchComponent } from '../property-search/property-search.component';
-import { of } from 'rxjs';
+import { of, Observable } from 'rxjs';
 import { delay, map } from 'rxjs/operators';
 
 enum PageType {
@@ -53,6 +53,46 @@ export class SettingsService {
 
   // simulate getting settings from API
   loadSettings(): Promise<boolean> {
+    // get settings
+    return this.mockAPICall()
+    .pipe(
+      map((settings: ISettings) => {
+        const router = this.injector.get(Router);
+        this.settings = settings;
+        // map routes from site pages
+        const routes = settings.site.pages.map(this.mapRoutesFromPages());
+        // set app routes
+        router.config = router.config.concat(routes);
+        return true;
+      })
+    )
+    .toPromise();
+  }
+
+  private mapRoutesFromPages(): (value: Page, index: number, array: Page[]) => { path: string; component: typeof HomeComponent; } {
+    return (page: Page) => {
+      // set routing component based on page type
+      switch (page.type) {
+        case PageType.HOME:
+          return {
+            path: page.path,
+            component: HomeComponent
+          };
+        case PageType.PROPERTYSEARCH:
+          return {
+            path: page.path,
+            component: PropertySearchComponent
+          };
+        default:
+          return {
+            path: page.path,
+            component: HomeComponent
+          };
+      }
+    };
+  }
+
+  mockAPICall(): Observable<ISettings> {
     const mockSettings = {
       agency: {
         id: 0,
@@ -87,37 +127,8 @@ export class SettingsService {
     };
     return of(mockSettings)
     .pipe(
-      delay(1000),
-      map((settings: ISettings) => {
-        const router = this.injector.get(Router);
-        this.settings = settings;
-        // map routes from settings
-        const routes = settings.site.pages.map((page: Page) => {
-          // set routing component based on page type
-          switch (page.type) {
-            case PageType.HOME:
-              return {
-                path: page.path,
-                component: HomeComponent
-              };
-            case PageType.PROPERTYSEARCH:
-              return {
-                path: page.path,
-                component: PropertySearchComponent
-              };
-            default:
-              return {
-                path: page.path,
-                component: HomeComponent
-              };
-          }
-        });
-
-        // set app routes
-        router.config = router.config.concat(routes);
-        return true;
-      })
-    ).toPromise();
+      delay(1000)
+    );
   }
 
   getRoutes(): Route[] {
