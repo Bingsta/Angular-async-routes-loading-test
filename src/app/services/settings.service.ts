@@ -10,7 +10,6 @@ import PageSummary from '../types/PageSummary.type';
 
 @Injectable()
 export class SettingsService {
-
   settings: ISettings;
 
   constructor(
@@ -96,6 +95,12 @@ export class SettingsService {
             name: 'some bollocks',
             type: PageType.PROPERTYSEARCH,
             path: 'bollocks'
+          },
+          {
+            id: 0,
+            name: 'new page',
+            type: PageType.HOME,
+            path: 'new'
           }
         ]
       }

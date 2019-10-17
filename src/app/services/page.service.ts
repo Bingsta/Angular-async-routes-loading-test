@@ -72,14 +72,14 @@ export class PageService {
         id: 0,
         name: 'Home',
         type: PageType.HOME,
-        title: 'Test',
-        strapline: 'Another test',
+        title: 'Home page',
+        strapline: 'Home page strapline',
         coverImage: 'dasd',
         modules: [
           {
             type: ModuleType.GenericHTML,
             config: {
-              title: 'Generic test',
+              title: 'Generic HTML test',
               html: '<div class="nonsense">My content</div>'
             }
           },
@@ -98,6 +98,13 @@ export class PageService {
                   address: 'property 3'
                 }
               ]
+            }
+          },
+          {
+            type: ModuleType.GenericHTML,
+            config: {
+              title: 'Another html component',
+              html: '<div class="nonsense"><ul><li>asdasd</li><li>dasdas</li></div>'
             }
           }
         ]
