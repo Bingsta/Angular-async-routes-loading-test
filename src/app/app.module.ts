@@ -10,6 +10,11 @@ import { HomeComponent } from './home/home.component';
 import { DocumentationComponent } from './documentation/documentation.component';
 import { SettingsService } from './services/settings.service';
 import { PropertySearchComponent } from './property-search/property-search.component';
+import { GenericHTMLComponent } from './generic-html/generic-html.component';
+import { PropertyModuleComponent } from './property-module/property-module.component';
+import { TestamonialModuleComponent } from './testamonial-module/testamonial-module.component';
+import { PageComponentListComponent } from './page-component-list/page-component-list.component';
+import { PageComponentListDirective } from './helpers/page-module.directive';
 
 export function initSettings(settings: SettingsService) {
   return () => settings.loadSettings();
@@ -22,12 +27,20 @@ export function initSettings(settings: SettingsService) {
     FooterComponent,
     HomeComponent,
     DocumentationComponent,
-    PropertySearchComponent
+    PropertySearchComponent,
+    GenericHTMLComponent,
+    PropertyModuleComponent,
+    TestamonialModuleComponent,
+    PageComponentListComponent,
+    PageComponentListDirective
   ],
   entryComponents: [
     HomeComponent,
     DocumentationComponent,
-    PropertySearchComponent
+    PropertySearchComponent,
+    GenericHTMLComponent,
+    PropertyModuleComponent,
+    TestamonialModuleComponent
   ],
   imports: [
     BrowserModule,

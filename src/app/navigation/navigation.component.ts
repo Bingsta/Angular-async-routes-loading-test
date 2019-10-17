@@ -1,9 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { SettingsService } from '../services/settings.service';
+import { PageService } from '../services/page.service';
 
 export interface INavigation {
   title: string;
   path: string;
+  pageId: number;
 }
 
 @Component({
@@ -15,7 +16,7 @@ export interface INavigation {
 export class NavigationComponent implements OnInit {
   @Input() appNavigation: INavigation[];
 
-  constructor() {
+  constructor(private pageService: PageService) {
     console.log(this.appNavigation);
   }
 

@@ -17,7 +17,8 @@ export class AppComponent {
     this.navigation = settingsService.settings.site.pages.map((page): INavigation => {
       return {
         title: page.name,
-        path: page.path
+        path: page.path,
+        pageId: page.id
       };
     });
   }

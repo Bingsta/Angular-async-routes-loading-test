@@ -4,43 +4,9 @@ import { HomeComponent } from '../home/home.component';
 import { PropertySearchComponent } from '../property-search/property-search.component';
 import { of, Observable } from 'rxjs';
 import { delay, map } from 'rxjs/operators';
-
-enum PageType {
-  HOME,
-  PROPERTYSEARCH,
-  CONTACTUS,
-  OFFICE,
-  ANCILLERY,
-  GENERIC
-}
-
-class Page {
-  id: number;
-  name: string;
-  type: PageType;
-  path: string;
-}
-class Branch {
-  id: number;
-  name: string;
-  tel: string;
-  email: string;
-  address: string;
-}
-class Agency {
-  id: number;
-  name: string;
-  logo: string;
-  branches: Branch[];
-}
-class Site {
-  pages: Page[];
-}
-
-export interface ISettings {
-  agency: Agency;
-  site: Site;
-}
+import { PageType } from '../types/PageType.type';
+import ISettings from '../types/ISettings.type';
+import PageSummary from '../types/PageSummary.type';
 
 @Injectable()
 export class SettingsService {
@@ -69,24 +35,27 @@ export class SettingsService {
     .toPromise();
   }
 
-  private mapRoutesFromPages(): (value: Page, index: number, array: Page[]) => { path: string; component: typeof HomeComponent; } {
-    return (page: Page) => {
+  private mapRoutesFromPages(): (value: PageSummary, index: number, array: PageSummary[]) => { path: string; component: any; } {
+    return (page: PageSummary) => {
       // set routing component based on page type
       switch (page.type) {
         case PageType.HOME:
           return {
             path: page.path,
-            component: HomeComponent
+            component: HomeComponent,
+            data: page
           };
         case PageType.PROPERTYSEARCH:
           return {
             path: page.path,
-            component: PropertySearchComponent
+            component: PropertySearchComponent,
+            data: page
           };
         default:
           return {
             path: page.path,
-            component: HomeComponent
+            component: HomeComponent,
+            data: page
           };
       }
     };
@@ -121,6 +90,12 @@ export class SettingsService {
             name: 'Property search',
             type: PageType.PROPERTYSEARCH,
             path: 'search'
+          },
+          {
+            id: 2,
+            name: 'some bollocks',
+            type: PageType.PROPERTYSEARCH,
+            path: 'bollocks'
           }
         ]
       }

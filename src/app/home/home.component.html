@@ -1,1 +1,17 @@
-<p>home works!</p>
+<div *ngIf="loaded" class="app-page">
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title">{{pageConfig.title}}</h1>
+        <h2 class="subtitle">{{pageConfig.strapline}}</h2>
+      </div>
+    </div>
+  </section>
+
+  <app-page-component-list [componentModules]=pageConfig.modules></app-page-component-list>
+
+</div>
+<div *ngIf="!loaded" class="app-page">
+  Loading...
+</div>

@@ -1,0 +1,8 @@
+export enum PageType {
+  HOME,
+  PROPERTYSEARCH,
+  CONTACTUS,
+  OFFICE,
+  ANCILLERY,
+  GENERIC
+}

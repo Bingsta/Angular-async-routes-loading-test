@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { PageService } from '../services/page.service';
+import PageSummary from '../types/PageSummary.type';
 
 @Component({
   selector: 'app-property-search',
@@ -6,10 +9,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./property-search.component.scss']
 })
 export class PropertySearchComponent implements OnInit {
+  pageSummary: PageSummary;
 
-  constructor() { }
+  constructor(private route: ActivatedRoute, private pageService: PageService) { }
 
   ngOnInit() {
+    this.pageSummary = this.route.snapshot.data as PageSummary;
+    console.log(this.pageSummary);
   }
 
 }
